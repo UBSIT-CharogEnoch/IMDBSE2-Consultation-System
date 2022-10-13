@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+
+    <style>
+        body{
+            padding: 0;
+            margin:0;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-container{
+            width:20%;
+            padding:1rem;
+            box-shadow: 1px 2px 2px black;
+            box-sizing: border-box;
+            border-radius: 1rem 1rem 1rem 1rem;
+        }
+
+        .login-container>.container>*{
+            margin: 1rem 0;
+            display:block;
+            
+        }
+
+        .login-container>.container>input{
+            padding: 0.5rem;
+        }
+
+        button{
+            display:block; text-align: center; padding: 0.5rem 1rem;text-align: center; background:black; color:white;
+            border:0;
+            outline: 0;
+            border: 1px solid black;
+        }
+
+        button:hover{
+            transition:500ms;
+            background: transparent;
+            color:black;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1 style="text-align:center;">
+            Login
+        </h1>
+        <div class="container">
+            <label for="uname"><b>Username</b></label>
+            <input type="text" placeholder=" enter username here...." name="uname" required>
+        
+            <label for="psw"><b>Password</b></label>
+            <input type="password" placeholder="enter password here..." name="psw" required>
+        
+            <button type="submit">Login</button>
+          </div>
+    </div>
+</body>
+</html>
