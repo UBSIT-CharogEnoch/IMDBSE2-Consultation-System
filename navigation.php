@@ -43,6 +43,7 @@
                 <?php
                // if user was not logged in, show the "login" and "register" options
 else{
+    ?>
     <ul class="nav navbar-nav navbar-right">
         <li <?php echo $page_title=="Login" ? "class='active'" : ""; ?>>
             <a href="<?php echo $home_url; ?>login">
@@ -56,6 +57,7 @@ else{
             </a>
         </li>
     </ul>
+    <?php
     }
                 ?>
  
