@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 07, 2022 at 08:49 AM
+-- Generation Time: Oct 14, 2022 at 09:21 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -24,169 +24,48 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `appointment_list`
+-- Table structure for table `login`
 --
 
-CREATE TABLE `appointment_list` (
-  `id` int(30) NOT NULL,
-  `tutor_id` int(30) NOT NULL,
-  `tutee_id` int(30) NOT NULL,
-  `schedule` datetime NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0= for verification, 1=confirmed,2= reschedule,3=done',
-  `date_created` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `subject_code`
---
-
-CREATE TABLE `subject_code` (
-  `id` int(30) NOT NULL,
-  `name` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `subject_code`
---
-
-INSERT INTO `subject_code` (`id`, `name`) VALUES
-(1, 'IMDBSE2'),
-(3, 'METHOD1'),
-(4, 'NETANA1'),
-(5, 'CERTIF1'),
-(6, 'SYSADM1');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tutee_list`
---
-
-CREATE TABLE `tutee_list` (
-  `id` int(30) NOT NULL,
-  `name` text NOT NULL,
+CREATE TABLE `login` (
+  `id` int(11) NOT NULL,
+  `firstname` varchar(32) NOT NULL,
+  `lastname` varchar(32) NOT NULL,
+  `email` varchar(64) NOT NULL,
+  `contact_number` varchar(64) NOT NULL,
   `address` text NOT NULL,
-  `contact_no` varchar(30) NOT NULL,
-  `date_created` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tutor_list`
---
-
-CREATE TABLE `tutor_list` (
-  `id` int(30) NOT NULL,
-  `name` text NOT NULL,
-  `contact` text NOT NULL,
-  `email` text NOT NULL,
-  `subject_code` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `password` varchar(512) NOT NULL,
+  `access_level` varchar(16) NOT NULL,
+  `access_code` text NOT NULL,
+  `status` int(11) NOT NULL COMMENT '0=pending,1=confirmed',
+  `created` datetime NOT NULL,
+  `modified` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='admin and customer users';
 
 --
--- Dumping data for table `tutor_list`
+-- Dumping data for table `login`
 --
 
-INSERT INTO `tutor_list` (`id`, `name`, `contact`, `email`, `subject_code`) VALUES
-(2, 'Cherrie Almazan', '09123456798', 'chealmazan@gmail.com', '[1]'),
-(3, 'Lou Philip Beltran', '09121378945', 'loubeltran@gmail.com', '[5]');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tutor_schedule`
---
-
-CREATE TABLE `tutor_schedule` (
-  `id` int(30) NOT NULL,
-  `tutor_id` int(30) NOT NULL,
-  `day` varchar(20) NOT NULL,
-  `time_from` time NOT NULL,
-  `time_to` time NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `tutor_schedule`
---
-
-INSERT INTO `tutor_schedule` (`id`, `tutor_id`, `day`, `time_from`, `time_to`) VALUES
-(3, 2, 'Monday', '10:00:00', '17:00:00'),
-(4, 2, 'Wednesday', '10:00:00', '17:00:00'),
-(5, 3, 'Monday', '10:00:00', '15:00:00'),
-(6, 3, 'Tuesday', '10:00:00', '15:00:00'),
-(7, 3, 'Wednesday', '10:00:00', '15:00:00'),
-(8, 3, 'Thursday', '10:00:00', '15:00:00'),
-(9, 3, 'Friday', '10:00:00', '15:00:00');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `users`
---
-
-CREATE TABLE `users` (
-  `id` int(30) NOT NULL,
-  `tutor_id` int(30) NOT NULL,
-  `name` varchar(200) NOT NULL,
-  `address` text NOT NULL,
-  `contact` text NOT NULL,
-  `username` varchar(100) NOT NULL,
-  `password` varchar(200) NOT NULL,
-  `type` tinyint(1) NOT NULL DEFAULT 2 COMMENT '1=admin , 2 = tutor,3=tutee'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`id`, `tutor_id`, `name`, `address`, `contact`, `username`, `password`, `type`) VALUES
-(1, 0, 'Administrator', '', '', 'admin', 'admin123', 1),
-(14, 0, 'Jraor Narding', 'Aurora Blvd.', '09123456789', 'jraor@yahoo.com', 'jraor', 3);
+INSERT INTO `login` (`id`, `firstname`, `lastname`, `email`, `contact_number`, `address`, `password`, `access_level`, `access_code`, `status`, `created`, `modified`) VALUES
+(1, 'Mike', 'Dalisay', 'mike@example.com', '0999999999', 'Blk. 24 A, Lot 6, Ph. 3, Peace Village', '$2y$10$AUBptrm9sQF696zr8Hv31On3x4wqnTihdCLocZmGLbiDvyLpyokL.', 'Admin', '', 1, '0000-00-00 00:00:00', '2016-06-13 10:17:47'),
+(2, 'Lauro', 'Abogne', 'lauro@eacomm.com', '08888888', 'Pasig City', '$2y$10$it4i11kRKrB19FfpPRWsRO5qtgrgajL7NnxOq180MsIhCKhAmSdDa', 'Customer', '', 1, '0000-00-00 00:00:00', '2015-03-23 23:00:21'),
+(4, 'Darwin', 'Dalisay', 'darwin@example.com', '9331868359', 'Blk 24 A Lot 6 Ph 3\r\nPeace Village, San Luis', '$2y$10$tLq9lTKDUt7EyTFhxL0QHuen/BgO9YQzFYTUyH50kJXLJ.ISO3HAO', 'Customer', 'ILXFBdMAbHVrJswNDnm231cziO8FZomn', 1, '2014-10-29 17:31:09', '2016-06-13 10:18:25'),
+(7, 'Marisol Jane', 'Dalisay', 'mariz@gmail.com', '09998765432', 'Blk. 24 A, Lot 6, Ph. 3, Peace Village', 'mariz', 'Customer', '', 1, '2015-02-25 09:35:52', '2015-03-23 23:00:21'),
+(9, 'Marykris', 'De Leon', 'marykrisdarell.deleon@gmail.com', '09194444444', 'Project 4, QC', '$2y$10$uUy7D5qmvaRYttLCx9wnU.WOD3/8URgOX7OBXHPpWyTDjU4ZteSEm', 'Customer', '', 1, '2015-02-27 14:28:46', '2015-03-23 22:51:03'),
+(10, 'Merlin', 'Duckerberg', 'merlin@gmail.com', '09991112333', 'Project 2, Quezon City', '$2y$10$VHY58eALB1QyYsP71RHD1ewmVxZZp.wLuhejyQrufvdy041arx1Kq', 'Admin', '', 1, '2015-03-18 06:45:28', '2015-03-23 23:00:21'),
+(14, 'Charlon', 'Ignacio', 'charlon@gmail.com', '09876543345', 'Tandang Sora, QC', '$2y$10$Fj6O1tPYI6UZRzJ9BNfFJuhURN9DnK5fQGHEsfol5LXRu.tCYYggu', 'Customer', '', 1, '2015-03-24 08:06:57', '2015-03-23 23:48:00'),
+(15, 'Kobe Bro', 'Bryant', 'kobe@gmail.com', '09898787674', 'Los Angeles, California', '$2y$10$fmanyjJxNfJ8O3p9jjUixu6EOHkGZrThtcd..TeNz2g.XZyCIuVpm', 'Customer', '', 1, '2015-03-26 11:28:01', '2015-03-25 19:39:52'),
+(20, 'Tim', 'Duncan', 'tim@example.com', '9999999', 'San Antonio, Texas, USA', '$2y$10$9OSKHLhiDdBkJTmd3VLnQeNPCtyH1IvZmcHrz4khBMHdxc8PLX5G6', 'Customer', '0X4JwsRmdif8UyyIHSOUjhZz9tva3Czj', 1, '2016-05-26 01:25:59', '2016-05-25 09:25:59'),
+(21, 'Tony', 'Parker', 'tony@example.com', '8888888', 'Blk 24 A Lot 6 Ph 3\r\nPeace Village, San Luis', '$2y$10$lBJfvLyl/X5PieaztTYADOxOQeZJCqETayF.O9ld17z3hcKSJwZae', 'Customer', 'THM3xkZzXeza5ISoTyPKl6oLpVa88tYl', 1, '2016-05-26 01:29:01', '2016-06-13 09:46:33');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `appointment_list`
+-- Indexes for table `login`
 --
-ALTER TABLE `appointment_list`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `tutee_fk` (`tutee_id`),
-  ADD KEY `tutor_fk` (`tutor_id`);
-
---
--- Indexes for table `subject_code`
---
-ALTER TABLE `subject_code`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `tutee_list`
---
-ALTER TABLE `tutee_list`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `tutor_list`
---
-ALTER TABLE `tutor_list`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `tutor_schedule`
---
-ALTER TABLE `tutor_schedule`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_tutor` (`tutor_id`);
-
---
--- Indexes for table `users`
---
-ALTER TABLE `users`
+ALTER TABLE `login`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -194,57 +73,10 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT for table `appointment_list`
+-- AUTO_INCREMENT for table `login`
 --
-ALTER TABLE `appointment_list`
-  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-
---
--- AUTO_INCREMENT for table `subject_code`
---
-ALTER TABLE `subject_code`
-  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `tutee_list`
---
-ALTER TABLE `tutee_list`
-  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `tutor_list`
---
-ALTER TABLE `tutor_list`
-  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `tutor_schedule`
---
-ALTER TABLE `tutor_schedule`
-  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `appointment_list`
---
-ALTER TABLE `appointment_list`
-  ADD CONSTRAINT `tutee_fk` FOREIGN KEY (`tutee_id`) REFERENCES `tutee_list` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `tutor_fk` FOREIGN KEY (`tutor_id`) REFERENCES `tutor_list` (`id`) ON UPDATE CASCADE;
-
---
--- Constraints for table `tutor_schedule`
---
-ALTER TABLE `tutor_schedule`
-  ADD CONSTRAINT `fk_tutor` FOREIGN KEY (`tutor_id`) REFERENCES `tutor_list` (`id`) ON UPDATE CASCADE;
+ALTER TABLE `login`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
