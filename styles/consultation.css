@@ -6,9 +6,19 @@
     display: inline-block;
     text-decoration: none;
     cursor: pointer;
-  }
+}
 
 .btn:hover {
     opacity: 1;
     transition:500ms;
+}
+
+#btns {
+  background-color: rgb(0, 255, 136);
+  color: blue;
+}
+
+table {
+  line-height: 100px;
+  text-align: center;
 }
